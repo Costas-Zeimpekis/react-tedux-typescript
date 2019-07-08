@@ -1,20 +1,31 @@
 import { SONG_SELECTED } from '../actions/actions';
 import { combineReducers } from 'redux';
+import {
+  typeInitialStateSongs,
+  State,
+  ActionSelecteSong,
+  MySongs,
+  ReducerSongReducer,
+  ActionsState
+} from '../../../Types';
 
-const initialState = [];
+const initialStateSongs: typeInitialStateSongs = [
+  { title: 'No Scrubs', duration: '4:00' },
+  { title: 'Macarena', duration: '5:00' },
+  { title: 'Nothing else', duration: '6:00' }
+];
 
-const songsReducer = () => {
-  return [
-    { title: 'No Scrubs', duration: '4:00' },
-    { title: 'Macarena', duration: '50' },
-    { title: 'Nothing else', duration: 60 }
-  ];
+const songsReducer = (
+  stateSongs: typeInitialStateSongs = initialStateSongs,
+  action: ActionSelecteSong
+): MySongs[] => {
+  return [...stateSongs];
 };
 
 const selectedSongReducer = (
-  selectedSong = null,
-  action: { type: string; payload: any }
-) => {
+  selectedSong: string = '',
+  action: ActionSelecteSong
+): string => {
   if (action.type === SONG_SELECTED) {
     return action.payload;
   }
@@ -23,6 +34,8 @@ const selectedSongReducer = (
 };
 
 export default combineReducers({
-  songs: songsReducer,
+  stateSongs: songsReducer,
   selectedSong: selectedSongReducer
 });
+
+// export default songsReducer;
